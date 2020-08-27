@@ -22,25 +22,38 @@ namespace CloudTrader.Weather.Api
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
+            //services.AddScoped<ITraderService, TraderService>();
+            //services.AddScoped<ITraderRepository, TraderRepository>();
+            //services.AddAutoMapper(typeof(TraderProfile));
+            services.AddMvc();
+            //services.AddDbContext<TraderContext>();
+            /*services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "CloudTrader-Traders API",
+                    Description = "Endpoints for the CloudTrader-Traders service"
+                });
+
+                c.EnableAnnotations();
+            });*/
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseExceptionHandler("/error");
+
+            //app.UseSwagger();
+
+           /* app.UseSwaggerUI(c =>
             {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseHttpsRedirection();
-
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "CloudTrader-Traders API");
+            });*/
             app.UseRouting();
-
-            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
