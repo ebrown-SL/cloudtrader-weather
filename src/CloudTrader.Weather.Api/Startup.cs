@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CloudTrader.Weather.Api.Interfaces;
+using CloudTrader.Weather.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,7 +27,7 @@ namespace CloudTrader.Weather.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
-            //services.AddScoped<ITraderService, TraderService>();
+            services.AddScoped<IExternalWeatherService, ExternalWeatherService>();
             //services.AddScoped<ITraderRepository, TraderRepository>();
             //services.AddAutoMapper(typeof(TraderProfile));
             services.AddMvc();
