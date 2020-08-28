@@ -7,6 +7,6 @@ namespace CloudTrader.Weather.Api.Interfaces
 {
     public interface IExternalWeatherService
     {
-        Task<String> GetExternalWeather();
+        Task<string> GetExternalWeather();
     }
 }

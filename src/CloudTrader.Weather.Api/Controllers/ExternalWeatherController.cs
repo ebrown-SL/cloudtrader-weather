@@ -24,11 +24,11 @@ namespace CloudTrader.Weather.Api.Controllers
             Description = "Returns an object containing an array of all traders")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllTradersResponseModel))]*/
 
-        public async Task<String> GetWeather()
+        public async Task<IActionResult> GetWeather()
         {
             var weather = await _externalWeatherService.GetExternalWeather();
 
-            return weather;
+            return Ok(weather);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using CloudTrader.Weather.Api.Interfaces;
+﻿using CloudTrader.Weather.Api.Helpers;
+using CloudTrader.Weather.Api.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,7 @@ namespace CloudTrader.Weather.Api.Services
             _mapper = mapper;
         }*/
 
-        public async Task<String> GetExternalWeather()
+        public async Task<string> GetExternalWeather()
         {
             using var client = new HttpClient();
 
@@ -29,8 +30,8 @@ namespace CloudTrader.Weather.Api.Services
 
             var response = await client.GetAsync(uri);
 
-            return JsonSerializer.Serialize(response);
-        }
+            return await response.Content.ReadAsStringAsync();
+;        }
 
     }
 }
