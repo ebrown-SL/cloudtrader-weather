@@ -26,7 +26,7 @@ namespace CloudTrader.Weather.Api.Services
             Console.WriteLine(uri);
             Console.WriteLine(await response.Content.ReadAsStringAsync());
             return (await response.ReadAsJson<WeatherData>()).data[0];
-;        }
+        }
 
     }
 }
