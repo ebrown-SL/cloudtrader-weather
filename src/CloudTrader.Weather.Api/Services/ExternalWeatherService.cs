@@ -1,5 +1,6 @@
 ﻿using CloudTrader.Weather.Api.Helpers;
 using CloudTrader.Weather.Api.Interfaces;
+using CloudTrader.Weather.Api.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,15 +12,20 @@ namespace CloudTrader.Weather.Api.Services
 {
     public class ExternalWeatherService : IExternalWeatherService
     {
-        public async Task<string> GetExternalWeather()
+        string weatherbitURL = "https://api.weatherbit.io/v2.0";
+        string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
+
+        public async Task<WeatherDatum> GetExternalWeather(string city)
         {
             using var client = new HttpClient();
 
-            var uri = $"https://api.weatherbit.io/v2.0/current?city=Raleigh,NC&key=f3854cc3edf94e5c8d829d78c8298f3f";
+            var uri = $"{weatherbitURL}/current?city={city},NC&key={apiKey}";
 
             var response = await client.GetAsync(uri);
 
-            return await response.Content.ReadAsStringAsync();
+            Console.WriteLine(uri);
+            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            return (await response.ReadAsJson<WeatherData>()).data[0];
 ;        }
 
     }

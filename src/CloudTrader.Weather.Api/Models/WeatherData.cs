@@ -8,6 +8,11 @@ namespace CloudTrader.Weather.Api.Models
 {
     public class WeatherData
     {
+        public WeatherDatum[] data { get; set; }
+    }
+
+    public class WeatherDatum
+    {
         [JsonProperty("precip")]
         public string Precipitation { get; set; }
         [JsonProperty("temp")]
@@ -18,13 +23,6 @@ namespace CloudTrader.Weather.Api.Models
         public string WindSpeed { get; set; }
         [JsonProperty("city_name")]
         public string CityName { get; set; }
-
-
-
-
-
-
-
-
     }
 }
+

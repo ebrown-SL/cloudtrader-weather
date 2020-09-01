@@ -18,15 +18,15 @@ namespace CloudTrader.Weather.Api.Controllers
             _externalWeatherService = externalWeatherService;
         }
 
-        [HttpGet("current")]
+        [HttpGet("{city}/current")]
         /*[SwaggerOperation(
             Summary = "Get all traders",
             Description = "Returns an object containing an array of all traders")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllTradersResponseModel))]*/
 
-        public async Task<IActionResult> GetWeather()
+        public async Task<IActionResult> GetWeatherForCity(string city)
         {
-            var weather = await _externalWeatherService.GetExternalWeather();
+            var weather = await _externalWeatherService.GetExternalWeather(city);
 
             return Ok(weather);
         }
