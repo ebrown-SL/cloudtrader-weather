@@ -30,5 +30,18 @@ namespace CloudTrader.Weather.Api.Controllers
 
             return Ok(weather);
         }
+
+        [HttpGet("all/current")]
+        /*[SwaggerOperation(
+            Summary = "Get all traders",
+            Description = "Returns an object containing an array of all traders")]
+        [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(GetAllTradersResponseModel))]*/
+
+        public async Task<IActionResult> GetWeatherForAll()
+        {
+            var weather = await _externalWeatherService.GetExternalWeatherForAll();
+
+            return Ok(weather);
+        }
     }
 }

@@ -24,5 +24,10 @@ namespace CloudTrader.Weather.Api.Models
         [JsonProperty("city_name")]
         public string CityName { get; set; }
     }
+
+    public class AllWeatherData
+    {
+        public WeatherDatum[] processedWeatherData { get; set; }
+    }
 }
 

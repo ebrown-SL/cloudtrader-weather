@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Metadata.Ecma335;
 using System.Text.Json;
 using System.Threading.Tasks;
 
@@ -14,6 +15,7 @@ namespace CloudTrader.Weather.Api.Services
     {
         string weatherbitURL = "https://api.weatherbit.io/v2.0";
         string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
+        string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
 
         public async Task<WeatherDatum> GetExternalWeather(string city)
         {
@@ -23,10 +25,29 @@ namespace CloudTrader.Weather.Api.Services
 
             var response = await client.GetAsync(uri);
 
-            Console.WriteLine(uri);
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
             return (await response.ReadAsJson<WeatherData>()).data[0];
         }
 
+        public async Task<AllWeatherData> GetExternalWeatherForAll()
+        {
+            WeatherDatum[] allWeatherData = new WeatherDatum[mineCities.Length];
+            
+         /*   mineCities.Each(async (string city, int n) =>
+                {
+                    Console.WriteLine(city);
+                    Console.WriteLine(n);
+                    allWeatherData[n] = await GetExternalWeather(city);
+                    Console.WriteLine(allWeatherData[n]);
+                }
+            );*/
+
+            allWeatherData[0] = await GetExternalWeather("Bristol");
+            allWeatherData[1] = await GetExternalWeather("London");
+            allWeatherData[2] = await GetExternalWeather("Newcastle");
+            allWeatherData[3] = await GetExternalWeather("Edinburgh");
+            Console.WriteLine(allWeatherData[0]);
+
+            return new AllWeatherData { processedWeatherData = allWeatherData };
+        }
     }
 }

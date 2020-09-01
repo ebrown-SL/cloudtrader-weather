@@ -9,5 +9,7 @@ namespace CloudTrader.Weather.Api.Interfaces
     public interface IExternalWeatherService
     {
         Task<WeatherDatum> GetExternalWeather(string city);
+
+        Task<AllWeatherData> GetExternalWeatherForAll();
     }
 }
