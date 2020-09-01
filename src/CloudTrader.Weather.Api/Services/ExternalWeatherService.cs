@@ -11,17 +11,6 @@ namespace CloudTrader.Weather.Api.Services
 {
     public class ExternalWeatherService : IExternalWeatherService
     {
-        //private readonly ITraderRepository _traderRepository;
-
-        //private readonly IMapper _mapper;
-
-        /*public TraderService(ITraderRepository traderRepository, IMapper mapper)
-        {
-            _traderRepository = traderRepository;
-
-            _mapper = mapper;
-        }*/
-
         public async Task<string> GetExternalWeather()
         {
             using var client = new HttpClient();
