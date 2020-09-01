@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 
 namespace CloudTrader.Weather
@@ -17,6 +19,12 @@ namespace CloudTrader.Weather
                 Encoding.UTF8,
                 "application/json"
             );
+        }
+
+        public static void Each<T>(this IEnumerable<T> ie, Action<T, int> action)
+        {
+            var i = 0;
+            foreach (var e in ie) action(e, i++);
         }
     }
 }
