@@ -19,7 +19,7 @@ namespace CloudTrader.Weather.Api.Services
         {
             using var client = new HttpClient();
 
-            var uri = $"{weatherbitURL}/current?city={city},NC&key={apiKey}";
+            var uri = $"{weatherbitURL}/current?city={city},GB&key={apiKey}";
 
             var response = await client.GetAsync(uri);
 
