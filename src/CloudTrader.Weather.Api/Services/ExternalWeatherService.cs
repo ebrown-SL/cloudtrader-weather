@@ -28,26 +28,16 @@ namespace CloudTrader.Weather.Api.Services
             return (await response.ReadAsJson<WeatherData>()).data[0];
         }
 
-        public async Task<AllWeatherData> GetExternalWeatherForAll()
+        public async Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll()
         {
-            WeatherDatum[] allWeatherData = new WeatherDatum[mineCities.Length];
-            
-         /*   mineCities.Each(async (string city, int n) =>
-                {
-                    Console.WriteLine(city);
-                    Console.WriteLine(n);
-                    allWeatherData[n] = await GetExternalWeather(city);
-                    Console.WriteLine(allWeatherData[n]);
-                }
-            );*/
-
-            allWeatherData[0] = await GetExternalWeather("Bristol");
-            allWeatherData[1] = await GetExternalWeather("London");
-            allWeatherData[2] = await GetExternalWeather("Newcastle");
-            allWeatherData[3] = await GetExternalWeather("Edinburgh");
-            Console.WriteLine(allWeatherData[0]);
-
-            return new AllWeatherData { processedWeatherData = allWeatherData };
+            return (await Task.WhenAll(
+                mineCities.Select(async city =>
+                    new {
+                        cityName = city,
+                        weather = await GetExternalWeather(city)
+                    }
+                )
+            )).ToDictionary(x => x.cityName, x => x.weather);
         }
     }
 }

@@ -14,15 +14,13 @@ namespace CloudTrader.Weather.Api.Models
     public class WeatherDatum
     {
         [JsonProperty("precip")]
-        public string Precipitation { get; set; }
+        public float Precipitation { get; set; }
         [JsonProperty("temp")]
-        public string Temperature { get; set; }
+        public float Temperature { get; set; }
         [JsonProperty("clouds")]
-        public string Clouds { get; set; }
+        public float Clouds { get; set; }
         [JsonProperty("wind_spd")]
-        public string WindSpeed { get; set; }
-        [JsonProperty("city_name")]
-        public string CityName { get; set; }
+        public float WindSpeed { get; set; }
     }
 
     public class AllWeatherData
@@ -30,4 +28,3 @@ namespace CloudTrader.Weather.Api.Models
         public WeatherDatum[] processedWeatherData { get; set; }
     }
 }
-

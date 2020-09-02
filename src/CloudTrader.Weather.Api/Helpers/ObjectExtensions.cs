@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CloudTrader.Weather
 {
@@ -21,10 +22,10 @@ namespace CloudTrader.Weather
             );
         }
 
-        public static void Each<T>(this IEnumerable<T> ie, Action<T, int> action)
+        public static async Task EachAsync<T>(this IEnumerable<T> ie, Func<T, int, Task> action)
         {
             var i = 0;
-            foreach (var e in ie) action(e, i++);
+            foreach (var e in ie) await action(e, i++);
         }
     }
 }
