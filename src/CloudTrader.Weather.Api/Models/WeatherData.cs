@@ -18,9 +18,4 @@ namespace CloudTrader.Weather.Api.Models
         [JsonProperty("wind_spd")]
         public float WindSpeed { get; set; }
     }
-
-    public class AllWeatherData
-    {
-        public WeatherDatum[] processedWeatherData { get; set; }
-    }
 }
