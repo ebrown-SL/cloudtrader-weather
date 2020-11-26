@@ -10,9 +10,9 @@ namespace CloudTrader.Weather.Api.Services
 {
     public class ExternalWeatherService : IExternalWeatherService
     {
-        string weatherbitURL = "https://api.weatherbit.io/v2.0";
-        string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
-        string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
+        private string weatherbitURL = "https://api.weatherbit.io/v2.0";
+        private string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
+        private string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
 
         public async Task<WeatherDatum> GetExternalWeather(string city)
         {
@@ -29,7 +29,8 @@ namespace CloudTrader.Weather.Api.Services
         {
             return (await Task.WhenAll(
                 mineCities.Select(async city =>
-                    new {
+                    new
+                    {
                         cityName = city,
                         weather = await GetExternalWeather(city)
                     }
