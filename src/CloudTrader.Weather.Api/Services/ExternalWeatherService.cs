@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System;
 
 namespace CloudTrader.Weather.Api.Services
 {
@@ -12,7 +13,7 @@ namespace CloudTrader.Weather.Api.Services
     {
         string weatherbitURL = "https://api.weatherbit.io/v2.0";
         string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
-        string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
+        // string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
 
         public async Task<WeatherDatum> GetExternalWeather(string city)
         {
@@ -25,8 +26,9 @@ namespace CloudTrader.Weather.Api.Services
             return (await response.ReadAsJson<WeatherData>()).data[0];
         }
 
-        public async Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll()
+        public async Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll(Dictionary<Guid, string> allMinesDictionary)
         {
+            string[] mineCities = allMinesDictionary.Values.ToArray();
             return (await Task.WhenAll(
                 mineCities.Select(async city =>
                     new {
