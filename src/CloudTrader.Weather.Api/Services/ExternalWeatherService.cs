@@ -26,11 +26,9 @@ namespace CloudTrader.Weather.Api.Services
             return (await response.ReadAsJson<WeatherData>()).data[0];
         }
 
-        public async Task<Dictionary<Guid, WeatherDatum>> GetExternalWeatherForAll(Dictionary<Guid, string> allMinesDictionary)
+        public async Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll(Dictionary<string, string> allMinesDictionary)
         {
-            Dictionary<string, Guid> reversedMinesDictionary = allMinesDictionary.ToDictionary((i) => i.Value, (i) => i.Key);
-
-            var foo = reversedMinesDictionary["Bristol"];
+            Dictionary<string, string> reversedMinesDictionary = allMinesDictionary.ToDictionary((i) => i.Value, (i) => i.Key);
 
             string[] mineCities = allMinesDictionary.Values.ToArray();
             return (await Task.WhenAll(

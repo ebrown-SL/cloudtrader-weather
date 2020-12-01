@@ -22,6 +22,15 @@ namespace CloudTrader.Weather
             );
         }
 
+        //public static HttpContent ToJsonStringContent(this Dictionary<Guid, string> dict)
+        //{
+        //    return new StringContent(
+        //        dict.ToJson(),
+        //        Encoding.UTF8,
+        //        "application/json"
+        //    );
+        //}
+
         public static async Task EachAsync<T>(this IEnumerable<T> ie, Func<T, int, Task> action)
         {
             var i = 0;

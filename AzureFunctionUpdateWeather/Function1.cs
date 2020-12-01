@@ -12,11 +12,18 @@ namespace AzureFunctionUpdateWeather
     public static class Function1
     {
         [FunctionName("Function1")]
-        public static async Task RunAsync([TimerTrigger("0 0 8 * * * ")]TimerInfo myTimer, ILogger log)
+        public static async Task RunAsync([TimerTrigger("0 56 * * * * ")]TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            var g = new GetAllWeather();
-            Console.WriteLine(await g.GetAllWeatherData());
+            // Get the dictionary of all mines
+            var gAM = new GetAllMines();
+            log.LogInformation($"Get all the mines");
+            var minesDict = await gAM.GetAllMinesDict();
+
+            var gAW = new GetAllWeather();
+            log.LogInformation($"Get all the weather");
+
+            log.LogInformation($"{await gAW.GetAllWeatherData(minesDict)}");
         }
     }
 
