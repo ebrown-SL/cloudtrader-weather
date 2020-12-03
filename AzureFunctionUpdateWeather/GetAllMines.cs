@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AzureFunctionUpdateWeather
 {
-    class GetAllMines
+    internal class GetAllMines
     {
         public async Task<IReadOnlyDictionary<string, string>> GetAllMinesDict()
         {
@@ -24,7 +23,6 @@ namespace AzureFunctionUpdateWeather
         }
     }
 }
-
 
 public class MineListResponse
 {
@@ -54,10 +52,13 @@ public class GeographicCoordinates
 {
     [Required]
     public double? Latitude { get; set; }
+
     [Required]
     public double? Longitude { get; set; }
 
-    public GeographicCoordinates() { }
+    public GeographicCoordinates()
+    {
+    }
 
     public GeographicCoordinates(double? latitude, double? longitude)
     {

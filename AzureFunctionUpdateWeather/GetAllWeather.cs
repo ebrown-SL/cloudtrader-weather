@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Http;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
+﻿using CloudTrader.Weather;
 using CloudTrader.Weather.Api.Models;
-using CloudTrader.Weather.Api.Helpers;
-using CloudTrader.Weather;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AzureFunctionUpdateWeather
 {

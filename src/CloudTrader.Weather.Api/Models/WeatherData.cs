@@ -11,10 +11,13 @@ namespace CloudTrader.Weather.Api.Models
     {
         [JsonProperty("precip")]
         public float Precipitation { get; set; }
+
         [JsonProperty("temp")]
         public float Temperature { get; set; }
+
         [JsonProperty("clouds")]
         public float Clouds { get; set; }
+
         [JsonProperty("wind_spd")]
         public float WindSpeed { get; set; }
     }

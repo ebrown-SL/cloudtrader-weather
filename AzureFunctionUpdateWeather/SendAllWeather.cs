@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using CloudTrader.Weather;
 using CloudTrader.Weather.Api.Models;
-using System.Threading.Tasks;
-using System.Net.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using CloudTrader.Weather;
-
-
+using System.Net.Http;
 
 namespace AzureFunctionUpdateWeather
 {
-    class SendAllWeather
+    internal class SendAllWeather
     {
         public async void SendAllMinesWeather(Dictionary<Guid, WeatherDatum> allWeather)
         {
@@ -34,11 +30,10 @@ namespace AzureFunctionUpdateWeather
         }
     }
 
-    #nullable enable
+#nullable enable
+
     public class MineUpdateModel
     {
-        
-
         public double? Temperature { get; set; }
 
         [Range(0, int.MaxValue)]
@@ -66,7 +61,8 @@ namespace AzureFunctionUpdateWeather
 
         public DateTime Time { get; set; }
     }
-    #nullable restore
+
+#nullable restore
 
     public enum UpdateType { None, trade, weather }
 }

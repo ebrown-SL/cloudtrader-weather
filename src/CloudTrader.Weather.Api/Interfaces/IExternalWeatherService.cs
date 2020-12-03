@@ -1,7 +1,6 @@
 ﻿using CloudTrader.Weather.Api.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using System;
 
 namespace CloudTrader.Weather.Api.Interfaces
 {

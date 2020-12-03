@@ -1,21 +1,20 @@
-using System;
-using System.Threading.Tasks;
-using System.Net.Http;
-using System.Collections.Generic;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
 using CloudTrader.Weather.Api.Models;
+using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace AzureFunctionUpdateWeather
 {
     public static class Function1
     {
         [FunctionName("Function1")]
-        public static async Task RunAsync([TimerTrigger("0 11 * * * * ")]TimerInfo myTimer, ILogger log)
+        public static async Task RunAsync([TimerTrigger("0 11 * * * * ")] TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
-            
+
             var gAM = new GetAllMines();
             log.LogInformation($"Get all the mines");
             var minesDict = await gAM.GetAllMinesDict();
@@ -30,7 +29,7 @@ namespace AzureFunctionUpdateWeather
         }
     }
 
-    static class HttpResponseMessageExtensions
+    internal static class HttpResponseMessageExtensions
     {
         public static async Task<T> ReadAsJson<T>(this HttpResponseMessage message)
         {
