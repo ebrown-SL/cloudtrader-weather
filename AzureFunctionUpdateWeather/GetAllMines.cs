@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Http;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace AzureFunctionUpdateWeather
 {
@@ -14,15 +16,52 @@ namespace AzureFunctionUpdateWeather
             // var uri = "https://cloudtrader.ukwest.cloudapp.azure.com/api/mine/";
             var uri = "http://localhost:1189/api/mine/";
 
-            var request = new HttpRequestMessage(HttpMethod.Get, uri);
-            request.Headers.Add("Accept", "application/vnd.scottlogic.cloudtrader.minelookup+json");
+            var response = await client.GetAsync(uri);
 
-            var response = await client.SendAsync(request);
+            var mines = await response.ReadAsJson<MineListResponse>();
 
-            Console.WriteLine(response);
-
-            return await response.ReadAsJson<Dictionary<string, string>>();
-
+            return mines.Mines.ToDictionary(x => x.Id.ToString(), x => x.Name);
         }
+    }
+}
+
+
+public class MineListResponse
+{
+    public IEnumerable<Mine> Mines { get; set; }
+}
+
+public class Mine
+{
+    [Key]
+    public Guid Id { get; set; }
+
+    [Required]
+    public GeographicCoordinates Coordinates { get; set; }
+
+    [Required]
+    public double Temperature { get; set; }
+
+    [Required]
+    [Range(0, int.MaxValue)]
+    public int Stock { get; set; }
+
+    [Required]
+    public string Name { get; set; }
+}
+
+public class GeographicCoordinates
+{
+    [Required]
+    public double? Latitude { get; set; }
+    [Required]
+    public double? Longitude { get; set; }
+
+    public GeographicCoordinates() { }
+
+    public GeographicCoordinates(double? latitude, double? longitude)
+    {
+        Latitude = latitude;
+        Longitude = longitude;
     }
 }
