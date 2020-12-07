@@ -9,13 +9,12 @@ namespace AzureFunctionUpdateWeather
 {
     internal class SendAllWeather
     {
-        public async void SendAllMinesWeather(Dictionary<Guid, WeatherDatum> allWeather)
+        public async void SendAllMinesWeather(Dictionary<Guid, InternalWeatherDatum> allWeather)
         {
-            foreach (KeyValuePair<Guid, WeatherDatum> entry in allWeather)
+            foreach (KeyValuePair<Guid, InternalWeatherDatum> entry in allWeather)
             {
                 var weatherUpdateForMine = new MineUpdateModel();
                 weatherUpdateForMine.Temperature = Convert.ToInt32(Math.Round(entry.Value.Temperature));
-                Console.WriteLine(Convert.ToInt32(Math.Round(entry.Value.Temperature)));
                 weatherUpdateForMine.Stock = Convert.ToInt32(Math.Round(entry.Value.Clouds));
                 weatherUpdateForMine.UpdateType = UpdateType.weather;
                 weatherUpdateForMine.Time = DateTime.Now;

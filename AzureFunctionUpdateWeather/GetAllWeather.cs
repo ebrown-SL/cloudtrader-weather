@@ -9,7 +9,7 @@ namespace AzureFunctionUpdateWeather
 {
     public class GetAllWeather
     {
-        public async Task<IReadOnlyDictionary<Guid, WeatherDatum>> GetAllWeatherData(IReadOnlyDictionary<string, string> allMinesDictionary)
+        public async Task<IReadOnlyDictionary<Guid, InternalWeatherDatum>> GetAllWeatherData(IReadOnlyDictionary<string, string> allMinesDictionary)
         {
             using var client = new HttpClient();
 
@@ -18,7 +18,9 @@ namespace AzureFunctionUpdateWeather
 
             var response = await client.PostAsync(uri, allMinesDictionary.ToJsonStringContent());
 
-            return await response.ReadAsJson<Dictionary<Guid, WeatherDatum>>();
+            var body = await response.Content.ReadAsStringAsync();
+
+            return await response.ReadAsJson<Dictionary<Guid, InternalWeatherDatum>>();
         }
     }
 }

@@ -13,7 +13,6 @@ namespace CloudTrader.Weather.Api.Services
     {
         private string weatherbitURL = "https://api.weatherbit.io/v2.0";
         private string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
-        // string[] mineCities = { "Bristol", "London", "Newcastle", "Edinburgh" };
 
         public async Task<WeatherDatum> GetExternalWeather(string city)
         {
