@@ -11,7 +11,7 @@ namespace AzureFunctionUpdateWeather
     public static class Function1
     {
         [FunctionName("Function1")]
-        public static async Task RunAsync([TimerTrigger("0 0 8 * * * ")] TimerInfo myTimer, ILogger log)
+        public static async Task RunAsync([TimerTrigger("0 47 * * * * ")] TimerInfo myTimer, ILogger log)
         {
             log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
@@ -25,7 +25,7 @@ namespace AzureFunctionUpdateWeather
 
             var sAW = new SendAllWeather();
             log.LogInformation($"Send all the weather");
-            sAW.SendAllMinesWeather((Dictionary<Guid, InternalWeatherDatum>)weatherData);
+            sAW.SendAllMinesWeather((Dictionary<Guid, WeatherDatum>)weatherData);
         }
     }
 

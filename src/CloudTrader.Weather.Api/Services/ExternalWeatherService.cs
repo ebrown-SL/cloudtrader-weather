@@ -14,7 +14,7 @@ namespace CloudTrader.Weather.Api.Services
         private string weatherbitURL = "https://api.weatherbit.io/v2.0";
         private string apiKey = "f3854cc3edf94e5c8d829d78c8298f3f";
 
-        public async Task<WeatherDatum> GetExternalWeather(string city)
+        public async Task<Models.WeatherDatum> GetExternalWeather(string city)
         {
             using var client = new HttpClient();
 
@@ -22,10 +22,10 @@ namespace CloudTrader.Weather.Api.Services
 
             var response = await client.GetAsync(uri);
 
-            return (await response.ReadAsJson<WeatherData>()).data[0];
+            return (await response.ReadAsJson<WeatherData>()).data[0]?.ToModel() ?? throw new Exception("No weather data found");
         }
 
-        public async Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll(Dictionary<string, string> allMinesDictionary)
+        public async Task<Dictionary<string, Models.WeatherDatum>> GetExternalWeatherForAll(Dictionary<string, string> allMinesDictionary)
         {
             Dictionary<string, string> reversedMinesDictionary = allMinesDictionary.ToDictionary((i) => i.Value, (i) => i.Key);
 
@@ -41,6 +41,29 @@ namespace CloudTrader.Weather.Api.Services
                 x => reversedMinesDictionary[x.cityName],
                 x => x.weather
             );
+        }
+
+        private class WeatherData
+        {
+            public WeatherDatum[] data { get; set; }
+        }
+
+        private class WeatherDatum
+        {
+            public float precip { get; set; }
+
+            public float temp { get; set; }
+
+            public float clouds { get; set; }
+
+            public float wind_spd { get; set; }
+
+            public Models.WeatherDatum ToModel() => new Models.WeatherDatum {
+                    Clouds = clouds,
+                    Precipitation = precip,
+                    Temperature = temp,
+                    WindSpeed = wind_spd
+            };
         }
     }
 }
