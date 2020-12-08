@@ -18,8 +18,6 @@ namespace AzureFunctionUpdateWeather
 
             var response = await client.PostAsync(uri, allMinesDictionary.ToJsonStringContent());
 
-            var body = await response.Content.ReadAsStringAsync();
-
             return await response.ReadAsJson<Dictionary<Guid, WeatherDatum>>();
         }
     }
