@@ -15,7 +15,6 @@ namespace AzureFunctionUpdateWeather
             {
                 var weatherUpdateForMine = new MineUpdateModel();
                 weatherUpdateForMine.Temperature = Convert.ToInt32(Math.Round(entry.Value.Temperature));
-                Console.WriteLine(Convert.ToInt32(Math.Round(entry.Value.Temperature)));
                 weatherUpdateForMine.Stock = Convert.ToInt32(Math.Round(entry.Value.Clouds));
                 weatherUpdateForMine.UpdateType = UpdateType.weather;
                 weatherUpdateForMine.Time = DateTime.Now;

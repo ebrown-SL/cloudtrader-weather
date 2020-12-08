@@ -19,7 +19,9 @@ namespace CloudTrader.Weather.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true);
+            services
+                .AddControllers(x => x.AllowEmptyInputInBodyModelBinding = true)
+                .AddNewtonsoftJson();
             services.AddScoped<IExternalWeatherService, ExternalWeatherService>();
             services.AddMvc();
             services.AddSwaggerGen(c =>
