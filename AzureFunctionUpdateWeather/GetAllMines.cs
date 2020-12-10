@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CloudTrader.Weather.Api.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -24,45 +25,3 @@ namespace AzureFunctionUpdateWeather
     }
 }
 
-public class MineListResponse
-{
-    public IEnumerable<Mine> Mines { get; set; }
-}
-
-public class Mine
-{
-    [Key]
-    public Guid Id { get; set; }
-
-    [Required]
-    public GeographicCoordinates Coordinates { get; set; }
-
-    [Required]
-    public double Temperature { get; set; }
-
-    [Required]
-    [Range(0, int.MaxValue)]
-    public int Stock { get; set; }
-
-    [Required]
-    public string Name { get; set; }
-}
-
-public class GeographicCoordinates
-{
-    [Required]
-    public double? Latitude { get; set; }
-
-    [Required]
-    public double? Longitude { get; set; }
-
-    public GeographicCoordinates()
-    {
-    }
-
-    public GeographicCoordinates(double? latitude, double? longitude)
-    {
-        Latitude = latitude;
-        Longitude = longitude;
-    }
-}
