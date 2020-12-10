@@ -32,7 +32,8 @@ namespace CloudTrader.Weather.Api.Services
             string[] mineCities = allMinesDictionary.Values.ToArray();
             return (await Task.WhenAll(
                 mineCities.Select(async city =>
-                    new {
+                    new
+                    {
                         cityName = city,
                         weather = await GetExternalWeather(city)
                     }
