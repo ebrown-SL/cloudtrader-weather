@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CloudTrader.Weather.Api.Models
+namespace AzureFunctionUpdateWeather.Models
 {
     public class GeographicCoordinates
     {

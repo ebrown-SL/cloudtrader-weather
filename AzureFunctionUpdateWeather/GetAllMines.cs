@@ -1,4 +1,5 @@
-﻿using CloudTrader.Weather.Api.Models;
+﻿using AzureFunctionUpdateWeather.Extensions;
+using AzureFunctionUpdateWeather.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,13 +11,13 @@ namespace AzureFunctionUpdateWeather
 {
     internal class GetAllMines
     {
+        private static string minesUrl = Environment.GetEnvironmentVariable("MINE_API_URL");
+
         public async Task<IReadOnlyDictionary<string, string>> GetAllMinesDict()
         {
             using var client = new HttpClient();
-            // var uri = "https://cloudtrader.ukwest.cloudapp.azure.com/api/mine/";
-            var uri = "http://localhost:1189/api/mine/";
 
-            var response = await client.GetAsync(uri);
+            var response = await client.GetAsync($"{minesUrl}/api/mine/");
 
             var mines = await response.ReadAsJson<MineListResponse>();
 

@@ -1,5 +1,5 @@
-﻿using CloudTrader.Weather;
-using CloudTrader.Weather.Api.Models;
+﻿using AzureFunctionUpdateWeather.Extensions;
+using AzureFunctionUpdateWeather.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -9,14 +9,13 @@ namespace AzureFunctionUpdateWeather
 {
     public class GetAllWeather
     {
+        private static string weatherUrl = Environment.GetEnvironmentVariable("WEATHER_API_URL");
+
         public async Task<IReadOnlyDictionary<Guid, WeatherDatum>> GetAllWeatherData(IReadOnlyDictionary<string, string> allMinesDictionary)
         {
             using var client = new HttpClient();
 
-            // var uri = "https://cloudtrader.ukwest.cloudapp.azure.com/externalweather/all/current"
-            var uri = "http://localhost:5888/externalweather/all/current";
-
-            var response = await client.PostAsync(uri, allMinesDictionary.ToJsonStringContent());
+            var response = await client.PostAsync($"{weatherUrl}/externalweather/all/current/", allMinesDictionary.ToJsonStringContent());
 
             return await response.ReadAsJson<Dictionary<Guid, WeatherDatum>>();
         }

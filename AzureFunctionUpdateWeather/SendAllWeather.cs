@@ -1,5 +1,5 @@
-﻿using CloudTrader.Weather;
-using CloudTrader.Weather.Api.Models;
+﻿using AzureFunctionUpdateWeather.Extensions;
+using AzureFunctionUpdateWeather.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +9,8 @@ namespace AzureFunctionUpdateWeather
 {
     internal class SendAllWeather
     {
+        private static string minesUrl = Environment.GetEnvironmentVariable("MINE_API_URL");
+
         public async void SendAllMinesWeather(Dictionary<Guid, WeatherDatum> allWeather)
         {
             foreach (KeyValuePair<Guid, WeatherDatum> entry in allWeather)
@@ -21,47 +23,8 @@ namespace AzureFunctionUpdateWeather
 
                 using var client = new HttpClient();
 
-                // var uri = "http://localhost:1189/api/mine/" + entry.Key.ToString();
-                var uri = "http://localhost:1189/api/mine/" + entry.Key.ToString();
-
-                var response = await client.PatchAsync(uri, weatherUpdateForMine.ToJsonStringContent()); ;
+                var response = await client.PatchAsync($"{minesUrl}/api/mine/{entry.Key}", weatherUpdateForMine.ToJsonStringContent());
             }
         }
     }
-
-#nullable enable
-
-    public class MineUpdateModel
-    {
-        public double? Temperature { get; set; }
-
-        [Range(0, int.MaxValue)]
-        public int? Stock { get; set; }
-
-        public string? Name { get; set; }
-
-        public UpdateType UpdateType
-        {
-            get => updateType;
-            set
-            {
-                if (!(value == UpdateType.trade || value == UpdateType.weather))
-                {
-                    throw new System.ArgumentException("UpdateType is invalid");
-                }
-                else
-                {
-                    updateType = value;
-                }
-            }
-        }
-
-        private UpdateType updateType;
-
-        public DateTime Time { get; set; }
-    }
-
-#nullable restore
-
-    public enum UpdateType { None, trade, weather }
 }
