@@ -31,14 +31,14 @@ namespace CloudTrader.Weather.Api.Controllers
             return Ok(weather);
         }
 
-        [HttpGet("all/current")]
+        [HttpPost("all/current")]
         [SwaggerOperation(
             Summary = "Get weather for all cities",
-            Description = "Returns an object with a key-value pair for each city: key = city name; value = weather data object for city")]
+            Description = "Returns an object with a key-value pair for each city: key = city name; value = weather datum object for city")]
         [SwaggerResponse(StatusCodes.Status200OK, "Success", typeof(Dictionary<string, WeatherDatum>))]
-        public async Task<IActionResult> GetWeatherForAll()
+        public async Task<IActionResult> GetWeatherForAll([FromBody, SwaggerRequestBody("The dictionary of all mine data")] Dictionary<string, string> allMinesDictionary)
         {
-            var weather = await _externalWeatherService.GetExternalWeatherForAll();
+            var weather = await _externalWeatherService.GetExternalWeatherForAll(allMinesDictionary);
 
             return Ok(weather);
         }

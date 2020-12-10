@@ -8,6 +8,6 @@ namespace CloudTrader.Weather.Api.Interfaces
     {
         Task<WeatherDatum> GetExternalWeather(string city);
 
-        Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll();
+        Task<Dictionary<string, WeatherDatum>> GetExternalWeatherForAll(Dictionary<string, string> allMinesDictionary);
     }
 }
